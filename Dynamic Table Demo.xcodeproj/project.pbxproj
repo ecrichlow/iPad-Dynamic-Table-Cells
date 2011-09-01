@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2739B5A91408D4C4008F75FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2739B5A81408D4C4008F75FD /* UIKit.framework */; };
+		2739B5AB1408D4C4008F75FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2739B5AA1408D4C4008F75FD /* Foundation.framework */; };
+		2739B5B11408D4C4008F75FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5AF1408D4C4008F75FD /* InfoPlist.strings */; };
+		2739B5B31408D4C4008F75FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5B21408D4C4008F75FD /* main.m */; };
+		2739B5B71408D4C4008F75FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5B61408D4C4008F75FD /* AppDelegate.m */; };
+		2739B5BA1408D4C4008F75FD /* DemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5B91408D4C4008F75FD /* DemoTableViewController.m */; };
+		2739B5BD1408D4C4008F75FD /* DemoTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5BB1408D4C4008F75FD /* DemoTableViewController.xib */; };
+		2739B5C81408DA7B008F75FD /* EditableTableDataRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5C51408DA7B008F75FD /* EditableTableDataRow.m */; };
+		2739B5C91408DA7B008F75FD /* EditableTableDataRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5C71408DA7B008F75FD /* EditableTableDataRowItem.m */; };
+		2739B5CC1408DAF1008F75FD /* MockDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2739B5CB1408DAF1008F75FD /* MockDataManager.m */; };
+		2739B5D41408E562008F75FD /* checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5CE1408E562008F75FD /* checkBox.png */; };
+		2739B5D51408E562008F75FD /* checkBoxChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5CF1408E562008F75FD /* checkBoxChecked.png */; };
+		2739B5D61408E562008F75FD /* comboBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5D01408E562008F75FD /* comboBox.png */; };
+		2739B5D71408E562008F75FD /* comboBoxSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5D11408E562008F75FD /* comboBoxSelected.png */; };
+		2739B5D81408E562008F75FD /* popupButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5D21408E562008F75FD /* popupButton.png */; };
+		2739B5D91408E562008F75FD /* popupButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5D31408E562008F75FD /* popupButtonSelected.png */; };
+		2739B5DC14099ACE008F75FD /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5DA14099ACE008F75FD /* camera.png */; };
+		2739B5DD14099ACE008F75FD /* cameraSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2739B5DB14099ACE008F75FD /* cameraSelected.png */; };
+		2739B5DF140A576B008F75FD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2739B5DE140A576B008F75FD /* CoreData.framework */; };
+		27B90856140D5C1100DD5944 /* ReadMe.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 27B90855140D5C1100DD5944 /* ReadMe.rtf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2739B5A41408D4C4008F75FD /* Dynamic Table Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dynamic Table Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2739B5A81408D4C4008F75FD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2739B5AA1408D4C4008F75FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2739B5AE1408D4C4008F75FD /* Dynamic Table Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Dynamic Table Demo-Info.plist"; sourceTree = "<group>"; };
+		2739B5B01408D4C4008F75FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2739B5B21408D4C4008F75FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2739B5B41408D4C4008F75FD /* Dynamic Table Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dynamic Table Demo-Prefix.pch"; sourceTree = "<group>"; };
+		2739B5B51408D4C4008F75FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2739B5B61408D4C4008F75FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2739B5B81408D4C4008F75FD /* DemoTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoTableViewController.h; sourceTree = "<group>"; };
+		2739B5B91408D4C4008F75FD /* DemoTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewController.m; sourceTree = "<group>"; };
+		2739B5BC1408D4C4008F75FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DemoTableViewController.xib; sourceTree = "<group>"; };
+		2739B5C41408DA7B008F75FD /* EditableTableDataRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditableTableDataRow.h; path = "Reusable Dynamic Table Cell Classes/EditableTableDataRow.h"; sourceTree = "<group>"; };
+		2739B5C51408DA7B008F75FD /* EditableTableDataRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditableTableDataRow.m; path = "Reusable Dynamic Table Cell Classes/EditableTableDataRow.m"; sourceTree = "<group>"; };
+		2739B5C61408DA7B008F75FD /* EditableTableDataRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditableTableDataRowItem.h; path = "Reusable Dynamic Table Cell Classes/EditableTableDataRowItem.h"; sourceTree = "<group>"; };
+		2739B5C71408DA7B008F75FD /* EditableTableDataRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditableTableDataRowItem.m; path = "Reusable Dynamic Table Cell Classes/EditableTableDataRowItem.m"; sourceTree = "<group>"; };
+		2739B5CA1408DAF1008F75FD /* MockDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDataManager.h; sourceTree = "<group>"; };
+		2739B5CB1408DAF1008F75FD /* MockDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDataManager.m; sourceTree = "<group>"; };
+		2739B5CE1408E562008F75FD /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkBox.png; path = Images/checkBox.png; sourceTree = "<group>"; };
+		2739B5CF1408E562008F75FD /* checkBoxChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkBoxChecked.png; path = Images/checkBoxChecked.png; sourceTree = "<group>"; };
+		2739B5D01408E562008F75FD /* comboBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comboBox.png; path = Images/comboBox.png; sourceTree = "<group>"; };
+		2739B5D11408E562008F75FD /* comboBoxSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comboBoxSelected.png; path = Images/comboBoxSelected.png; sourceTree = "<group>"; };
+		2739B5D21408E562008F75FD /* popupButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popupButton.png; path = Images/popupButton.png; sourceTree = "<group>"; };
+		2739B5D31408E562008F75FD /* popupButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = popupButtonSelected.png; path = Images/popupButtonSelected.png; sourceTree = "<group>"; };
+		2739B5DA14099ACE008F75FD /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = Images/camera.png; sourceTree = "<group>"; };
+		2739B5DB14099ACE008F75FD /* cameraSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cameraSelected.png; path = Images/cameraSelected.png; sourceTree = "<group>"; };
+		2739B5DE140A576B008F75FD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		27B90855140D5C1100DD5944 /* ReadMe.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = ReadMe.rtf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2739B5A11408D4C4008F75FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2739B5DF140A576B008F75FD /* CoreData.framework in Frameworks */,
+				2739B5A91408D4C4008F75FD /* UIKit.framework in Frameworks */,
+				2739B5AB1408D4C4008F75FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2739B5991408D4C4008F75FD = {
+			isa = PBXGroup;
+			children = (
+				27B90855140D5C1100DD5944 /* ReadMe.rtf */,
+				2739B5AC1408D4C4008F75FD /* Dynamic Table Demo */,
+				2739B5A71408D4C4008F75FD /* Frameworks */,
+				2739B5A51408D4C4008F75FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2739B5A51408D4C4008F75FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5A41408D4C4008F75FD /* Dynamic Table Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2739B5A71408D4C4008F75FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5DE140A576B008F75FD /* CoreData.framework */,
+				2739B5A81408D4C4008F75FD /* UIKit.framework */,
+				2739B5AA1408D4C4008F75FD /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2739B5AC1408D4C4008F75FD /* Dynamic Table Demo */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5B51408D4C4008F75FD /* AppDelegate.h */,
+				2739B5B61408D4C4008F75FD /* AppDelegate.m */,
+				2739B5B81408D4C4008F75FD /* DemoTableViewController.h */,
+				2739B5B91408D4C4008F75FD /* DemoTableViewController.m */,
+				2739B5BB1408D4C4008F75FD /* DemoTableViewController.xib */,
+				2739B5CA1408DAF1008F75FD /* MockDataManager.h */,
+				2739B5CB1408DAF1008F75FD /* MockDataManager.m */,
+				2739B5C31408D5ED008F75FD /* Reusable Dynamic Table Cell Classes */,
+				2739B5CD1408E50B008F75FD /* Images */,
+				2739B5AD1408D4C4008F75FD /* Supporting Files */,
+			);
+			path = "Dynamic Table Demo";
+			sourceTree = "<group>";
+		};
+		2739B5AD1408D4C4008F75FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5AE1408D4C4008F75FD /* Dynamic Table Demo-Info.plist */,
+				2739B5AF1408D4C4008F75FD /* InfoPlist.strings */,
+				2739B5B21408D4C4008F75FD /* main.m */,
+				2739B5B41408D4C4008F75FD /* Dynamic Table Demo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2739B5C31408D5ED008F75FD /* Reusable Dynamic Table Cell Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5C41408DA7B008F75FD /* EditableTableDataRow.h */,
+				2739B5C51408DA7B008F75FD /* EditableTableDataRow.m */,
+				2739B5C61408DA7B008F75FD /* EditableTableDataRowItem.h */,
+				2739B5C71408DA7B008F75FD /* EditableTableDataRowItem.m */,
+			);
+			name = "Reusable Dynamic Table Cell Classes";
+			sourceTree = "<group>";
+		};
+		2739B5CD1408E50B008F75FD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				2739B5DA14099ACE008F75FD /* camera.png */,
+				2739B5DB14099ACE008F75FD /* cameraSelected.png */,
+				2739B5CE1408E562008F75FD /* checkBox.png */,
+				2739B5CF1408E562008F75FD /* checkBoxChecked.png */,
+				2739B5D01408E562008F75FD /* comboBox.png */,
+				2739B5D11408E562008F75FD /* comboBoxSelected.png */,
+				2739B5D21408E562008F75FD /* popupButton.png */,
+				2739B5D31408E562008F75FD /* popupButtonSelected.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2739B5A31408D4C4008F75FD /* Dynamic Table Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2739B5C01408D4C4008F75FD /* Build configuration list for PBXNativeTarget "Dynamic Table Demo" */;
+			buildPhases = (
+				2739B5A01408D4C4008F75FD /* Sources */,
+				2739B5A11408D4C4008F75FD /* Frameworks */,
+				2739B5A21408D4C4008F75FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dynamic Table Demo";
+			productName = "Dynamic Table Demo";
+			productReference = 2739B5A41408D4C4008F75FD /* Dynamic Table Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2739B59B1408D4C4008F75FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = Neudesic;
+			};
+			buildConfigurationList = 2739B59E1408D4C4008F75FD /* Build configuration list for PBXProject "Dynamic Table Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2739B5991408D4C4008F75FD;
+			productRefGroup = 2739B5A51408D4C4008F75FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2739B5A31408D4C4008F75FD /* Dynamic Table Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2739B5A21408D4C4008F75FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2739B5B11408D4C4008F75FD /* InfoPlist.strings in Resources */,
+				2739B5BD1408D4C4008F75FD /* DemoTableViewController.xib in Resources */,
+				2739B5D41408E562008F75FD /* checkBox.png in Resources */,
+				2739B5D51408E562008F75FD /* checkBoxChecked.png in Resources */,
+				2739B5D61408E562008F75FD /* comboBox.png in Resources */,
+				2739B5D71408E562008F75FD /* comboBoxSelected.png in Resources */,
+				2739B5D81408E562008F75FD /* popupButton.png in Resources */,
+				2739B5D91408E562008F75FD /* popupButtonSelected.png in Resources */,
+				2739B5DC14099ACE008F75FD /* camera.png in Resources */,
+				2739B5DD14099ACE008F75FD /* cameraSelected.png in Resources */,
+				27B90856140D5C1100DD5944 /* ReadMe.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2739B5A01408D4C4008F75FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2739B5B31408D4C4008F75FD /* main.m in Sources */,
+				2739B5B71408D4C4008F75FD /* AppDelegate.m in Sources */,
+				2739B5BA1408D4C4008F75FD /* DemoTableViewController.m in Sources */,
+				2739B5C81408DA7B008F75FD /* EditableTableDataRow.m in Sources */,
+				2739B5C91408DA7B008F75FD /* EditableTableDataRowItem.m in Sources */,
+				2739B5CC1408DAF1008F75FD /* MockDataManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2739B5AF1408D4C4008F75FD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2739B5B01408D4C4008F75FD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2739B5BB1408D4C4008F75FD /* DemoTableViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2739B5BC1408D4C4008F75FD /* en */,
+			);
+			name = DemoTableViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2739B5BE1408D4C4008F75FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		2739B5BF1408D4C4008F75FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2739B5C11408D4C4008F75FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Dynamic Table Demo/Dynamic Table Demo-Prefix.pch";
+				INFOPLIST_FILE = "Dynamic Table Demo/Dynamic Table Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2739B5C21408D4C4008F75FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Dynamic Table Demo/Dynamic Table Demo-Prefix.pch";
+				INFOPLIST_FILE = "Dynamic Table Demo/Dynamic Table Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2739B59E1408D4C4008F75FD /* Build configuration list for PBXProject "Dynamic Table Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2739B5BE1408D4C4008F75FD /* Debug */,
+				2739B5BF1408D4C4008F75FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2739B5C01408D4C4008F75FD /* Build configuration list for PBXNativeTarget "Dynamic Table Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2739B5C11408D4C4008F75FD /* Debug */,
+				2739B5C21408D4C4008F75FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2739B59B1408D4C4008F75FD /* Project object */;
+}
