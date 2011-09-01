@@ -1,0 +1,286 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red92\green38\blue153;\red170\green13\blue145;\red196\green26\blue22;
+\red63\green110\blue116;\red46\green13\blue110;\red38\green71\blue75;\red100\green56\blue32;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc
+
+\f0\fs48 \cf0 Dynamic Table Demo\
+v1.0\
+(c) 2011 Infusions of Grandeur\
+Written By: Eric Crichlow\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+
+\b\fs36 Background\
+
+\fs28 \
+\pard\tx0\tx680\tx680\tx680\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li680\fi20\pardirnatural
+
+\b0 \cf0 Dynamic Table Demo is a sample app created as a showcase and tutorial for "Reusable Dynamic Table Cell Classes", a set of classes designed to increase the usefulness and flexibility of the built-in iPad UITableView.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li700\pardirnatural
+\cf0 On the iPhone, the display is so small that tables are only suited to displaying limited information. The only in-line editing that makes sense in that context is data where the table row has a label and a value.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li700\pardirnatural
+\cf0 The iPad, however, is much more suitable for having table rows that can more closely approximate the UI of desktop applications.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+\cf0 \
+"Reusable Dynamic Table Cell Classes" bridges this gap.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li680\fi20\pardirnatural
+\cf0 The classes give developers the ability to set up relatively complex table rows, in code, with UI elements that mimic popup boxes, combo boxes and check boxes from Mac OS X Cocoa. They also include standard text fields and buttons from Cocoa Touch.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li680\fi20\pardirnatural
+\cf0 The developer has the ability to access the underlying UI objects to perform as much customization as the iOS SDK allows.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+\cf0 \
+Sample images are provided and you are free to use them.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b\fs36 \cf0 History\
+
+\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
+
+\b0 \cf0 Version 1.0 - Initial release
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\fs36 \cf0 Classes\
+
+\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\i\b0 \cf0 	EditableTableDataRow\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\i0 \cf0 \
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi720\pardirnatural
+\cf0 This is the subclass of UITableViewCell that is instantiated in calls to cellForRowAtIndexPath.\
+It contains 5 properties of interest to the developer:\
+\pard\tx720\tx1440\tx1440\tx2140\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2120\fi-660\pardirnatural
+
+\i \cf0 delegate - 
+\i0 the object responsible for processing the data returned by the EditableTableDataRowItems in the cell\
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2160\fi-700\pardirnatural
+
+\i \cf0 editColumn - 
+\i0 when the cell is drawn, if a value for this property is set, focus will be given to that column, such as making a text field first responder\
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2180\fi-720\pardirnatural
+
+\i \cf0 rowItems - 
+\i0 an array of EditableTableDataRowItem objects which will be used to populate the cell\
+\pard\tx1440\tx1440\tx2140\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2120\fi-660\pardirnatural
+
+\i \cf0 itemPadding - 
+\i0 the number of points to place between each EditableTableDataRowItem in the cell\
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2180\fi-720\pardirnatural
+
+\i \cf0 scaleToFillRow - 
+\i0 determines whether the sizes of the EditableTableDataRowItems will be scaled to take up as much of the space as possible\
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi-740\pardirnatural
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\i \cf0 	EditableTableDataRowItem\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\i0 \cf0 \
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi720\pardirnatural
+\cf0 This class represents a control to be placed in the table view cell.\
+It contains 8 properties of interest to the developer:\
+\pard\tx720\tx1400\tx1440\tx1440\tx1480\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2120\fi-660\pardirnatural
+
+\i \cf0 itemControlType - 
+\i0 defines the type of control to create for the item, choices are: 
+\f1\fs22 \CocoaLigature0 ControlTypeTextField, ControlTypePopup, ControlTypeCombo, ControlTypeTextField, ControlTypeButton, ControlTypeToggleButton
+\f0\fs28 \CocoaLigature1 \
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2140\fi-680\pardirnatural
+
+\i \cf0 controlSelections - 
+\i0 an array of objects used to populate the popup and combo list types. Objects in the array can be either strings, dictionaries or NSManagedObjects\
+
+\i listKey - 
+\i0 if the array in controlSelections is a dictionary or NSManagedObject, this property contains the key to use is retrieving the string value to place in the popup/combo\
+
+\i baseSize - 
+\i0 if the resizeable property is set to "YES",
+\i  
+\i0 the width of this value is not given in absolute units (pixels, points, etc...) Rather, the value for each EditableTableDataRowItem is relative to the total of all of the values for all of the items. In other words, if one item has a value twice as big as another item, then that item will display twice as wide as the other item. The actual size of each item is determined by the space available\
+
+\i resizeable - 
+\i0 flag that
+\i  
+\i0 determines whether the control associated with this item can be scaled to fill as much space as possible\
+
+\i control - 
+\i0 the UIControl object used to represent the simulated control in the cell. For 
+\f1\fs22 \CocoaLigature0 ControlTypeTextField
+\f0\fs28 \CocoaLigature1  this control is a UITextField. For  all other types the underlying control is a UIButton; This object can be retrieved through this property by the developer to perform any customizations allowed by the UIKit Framework\
+
+\i normalImage - 
+\i0 for the button-based types, this is the image set for the button in the normal state\
+
+\i selectedImage - 
+\i0 for the button-based types, this is the image set for the button in the selected state\
+\pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi-740\pardirnatural
+
+\b \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\fs36 \cf0 Usage\
+
+\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
+\cf0 	
+\b0 Add the following 4 files to your project:\
+\
+		EditableTableDataRow.h\
+		EditableTableDataRow.m\
+		EditableTableDataRowItem.h\
+		EditableTableDataRowItem.m\
+
+\b \
+	
+\b0 In the  cellForRowAtIndexPath method of your tableview data source, initialize or dequeue the EditableTableDataRow object to use for the table row, initialize the EditableTableDataRowItem objects that will populate the row, perform any UIKIT customizations of the underlying UIKit objects used to represent the EditableTableDataRowItem objects, assign the delegate of the cell and assign an array of the items to the rowItems property of the cell:\
+\
+\pard\tx560\pardeftab560\pardirnatural
+
+\f1\fs22 \cf0 \CocoaLigature0 - (\cf2 UITableViewCell\cf0  *)tableView:(\cf2 UITableView\cf0  *)tableView cellForRowAtIndexPath:(\cf2 NSIndexPath\cf0  *)indexPath\
+\{\
+	\
+    \cf3 static\cf0  \cf2 NSString\cf0  *customCellIdentifier = \cf4 @"customCell"\cf0 ;\
+	\cf5 EditableTableDataRow\cf0  *cell = \cf3 nil\cf0 ;\
+    \
+	cell = (\cf5 EditableTableDataRow\cf0  *)[tableView \cf6 dequeueReusableCellWithIdentifier\cf0 :customCellIdentifier];\
+	\cf3 if\cf0  (cell == \cf3 nil\cf0 )\
+		\{\
+		cell = [[[\cf5 EditableTableDataRow\cf0  \cf6 alloc\cf0 ] \cf7 initWithStyle\cf0 :\cf6 UITableViewCellStyleDefault\cf0  \cf7 reuseIdentifier\cf0 :customCellIdentifier \cf7 itemPadding\cf0 :\cf8 DEFAULT_ROW_ITEM_PADDING\cf0  \cf7 scaleToFill\cf0 :\cf3 YES\cf0 ] \cf6 autorelease\cf0 ];\
+		\}\
+\
+	\cf5 EditableTableDataRowItem\cf0  *yearRowItem = [[[\cf5 EditableTableDataRowItem\cf0  \cf6 alloc\cf0 ] \cf7 initWithRowItemControlType\cf0 :\cf7 ControlTypeTextField\cf0  \cf7 selections\cf0 :\cf3 nil\cf0  \cf7 selectionListKey\cf0 :\cf3 nil\cf0  \cf7 baseSize\cf0 :\cf6 CGSizeMake\cf0 (\cf8 YEAR_COLUMN_RELATIVE_WIDTH\cf0 , \cf8 DEFAULT_TEXTFIELD_HEIGHT\cf0 ) \cf7 canResize\cf0 :\cf3 NO\cf0  \cf7 normalImage\cf0 :\cf3 nil\cf0  \cf7 selectedImage\cf0 :\cf3 nil\cf0  \cf7 controlLabel\cf0 :[[\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :indexPath.\cf2 row\cf0 ] \cf6 valueForKey\cf0 :\cf4 @"year"\cf0 ] \cf7 buttonTarget\cf0 :\cf3 nil\cf0  \cf7 buttonAction\cf0 :\cf3 nil\cf0 ] \cf6 autorelease\cf0 ];\
+.\
+.\
+.\
+	\cf2 NSArray\cf0  *dataRowItems = [\cf2 NSArray\cf0  \cf6 arrayWithObjects\cf0 :yearRowItem, makeRowItem, modelRowItem, colorRowItem, mileageRowItem, titledRowItem, imageRowItem, \cf3 nil\cf0 ];\
+	\cf2 UITextField\cf0  *yearField = (\cf2 UITextField\cf0  *)yearRowItem.\cf5 control\cf0 ;\
+	\cf2 UITextField\cf0  *mileageField = (\cf2 UITextField\cf0  *)mileageRowItem.\cf5 control\cf0 ;\
+	\cf2 UIButton\cf0  *titledField = (\cf2 UIButton\cf0  *)titledRowItem.\cf5 control\cf0 ;\
+	cell.\cf5 delegate\cf0  = \cf3 self\cf0 ;\
+	cell.\cf2 tag\cf0  = indexPath.\cf2 row\cf0 ;\
+\
+	\cf3 if\cf0  ([[[\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :indexPath.\cf2 row\cf0 ] \cf6 valueForKey\cf0 :\cf4 @"year"\cf0 ] \cf6 isEqualToString\cf0 :\cf4 @""\cf0 ])\
+		\{\
+		yearField.\cf2 placeholder\cf0  = \cf4 @"Year"\cf0 ;\
+		\}\
+	\cf3 else\cf0 \
+		\{\
+		yearField.\cf2 text\cf0  = [[\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :indexPath.\cf2 row\cf0 ] \cf6 valueForKey\cf0 :\cf4 @"year"\cf0 ];\
+		\}\
+.\
+.\
+.\
+	cell.\cf5 rowItems\cf0  = dataRowItems;\
+    \cf3 return\cf0  cell;\
+\}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
+
+\f0\fs28 \cf0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
+
+\b \cf0 	
+\b0 Implement the EditableTableDataRow delegate method.
+\b \
+\pard\tx560\pardeftab560\pardirnatural
+
+\f1\b0 \cf0 \CocoaLigature0 \
+\pard\tx560\pardeftab560\pardirnatural
+
+\fs22 \cf0 - (\cf3 void\cf0 )dataRow:(\cf5 EditableTableDataRow\cf0  *)dataRow didSetValue:(\cf3 id\cf0 )newValue forColumn:(\cf3 int\cf0 )column\
+\{\
+\
+	\cf2 NSMutableDictionary\cf0 				*editedAuto = [\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :dataRow.\cf2 tag\cf0 ];\
+\
+	\cf3 switch\cf0  (column)\
+		\{\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_YEAR\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"year"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_MAKE\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"make"\cf0 ];\
+			[editedAuto \cf6 setValue\cf0 :\cf4 @""\cf0  \cf6 forKey\cf0 :\cf4 @"model"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_MODEL\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"model"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_COLOR\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"color"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_MILEAGE\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"mileage"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  \cf8 TABLE_COLUMN_TITLED\cf0 :\
+			[editedAuto \cf6 setValue\cf0 :newValue \cf6 forKey\cf0 :\cf4 @"titled"\cf0 ];\
+			\cf3 break\cf0 ;\
+		\cf3 default\cf0 :\
+			\cf3 break\cf0 ;\
+		\}\
+	dataRow.\cf5 editColumn\cf0  = \cf3 nil\cf0 ;\
+	[\cf3 self\cf0 .\cf5 autoTableView\cf0  \cf6 reloadData\cf0 ];\
+\}\
+\pard\tx560\pardeftab560\pardirnatural
+
+\f0\b\fs28 \cf0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\fs36 \cf0 Known Issues\
+
+\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
+\cf0 	
+\b0 Because the popup and combo box control types are actually simulated by placing relevant appearing images over UIButtons, the text label displaying the value of those controls extends to the ends of the buttons, and can thus overwrite parts of the image that normally wouldn't be able to be written over with real popups and combo boxes.\
+
+\b \
+	
+\b0 The scaling algorithm doesn't currently take maximum advantage of the space available.\
+
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\fs36 \cf0 Support\
+
+\fs28 \
+\pard\pardeftab720\li740\fi-20
+
+\b0 \cf0 Questions, suggestions or contributions to the codebase can be submitted to support@infusionsofgrandeur.com\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b\fs36 \cf0 License\
+
+\fs28 \
+\pard\pardeftab720\li740\fi-20
+
+\b0 \cf0 Copyright 2011 Infusions of Grandeur\
+\
+Licensed under the Apache License, Version 2.0 (the "License");\
+you may not use this file except in compliance with the License.\
+You may obtain a copy of the License at\
+\
+http://www.apache.org/licenses/LICENSE-2.0\
+\
+Unless required by applicable law or agreed to in writing, software\
+distributed under the License is distributed on an "AS IS" BASIS,\
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\
+See the License for the specific language governing permissions and\
+limitations under the License.\
+\
+}
