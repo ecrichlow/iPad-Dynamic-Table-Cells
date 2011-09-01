@@ -26,6 +26,7 @@ EditableTableDataRow
 
 This is the subclass of UITableViewCell that is instantiated in calls to cellForRowAtIndexPath.
 It contains 5 properties of interest to the developer:
+
 * delegate - the object responsible for processing the data returned by the EditableTableDataRowItems in the cell
 * editColumn - when the cell is drawn, if a value for this property is set, focus will be given to that column, such as making a text field first responder
 * rowItems - an array of EditableTableDataRowItem objects which will be used to populate the cell
@@ -36,6 +37,7 @@ EditableTableDataRowItem
 
 This class represents a control to be placed in the table view cell.
 It contains 8 properties of interest to the developer:
+
 * itemControlType - defines the type of control to create for the item, choices are: ControlTypeTextField, ControlTypePopup, ControlTypeCombo, ControlTypeTextField, ControlTypeButton, ControlTypeToggleButton
 * controlSelections - an array of objects used to populate the popup and combo list types. Objects in the array can be either strings, dictionaries or NSManagedObjects
 * listKey - if the array in controlSelections is a dictionary or NSManagedObject, this property contains the key to use is retrieving the string value to place in the popup/combo
