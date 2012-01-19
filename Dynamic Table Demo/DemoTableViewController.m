@@ -46,7 +46,7 @@
 	// Every EditableTableRow item is going to need to re-adjust its item sizes
 	for (EditableTableDataRow *row in self.autoTableView.visibleCells)
 		{
-		[row updateSizes];
+//		[row updateSizes];
 		}
     return YES;
 }
@@ -90,6 +90,7 @@
 {
 
 	NSMutableDictionary				*editedAuto = [dataManager.autoCollection objectAtIndex:dataRow.tag];
+	NSIndexPath						*selectedRow = [autoTableView indexPathForCell:dataRow];
 
 	switch (column)
 		{
@@ -117,6 +118,14 @@
 		}
 	dataRow.editColumn = nil;
 	[self.autoTableView reloadData];
+	[autoTableView selectRowAtIndexPath:selectedRow animated:NO scrollPosition:UITableViewScrollPositionNone];
+}
+
+- (void)didSelectDataRow:(EditableTableDataRow *)dataRow
+{
+	
+	[autoTableView deselectRowAtIndexPath:[autoTableView indexPathForSelectedRow] animated:NO];
+	[autoTableView selectRowAtIndexPath:[autoTableView indexPathForCell:dataRow] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - Table view delegate

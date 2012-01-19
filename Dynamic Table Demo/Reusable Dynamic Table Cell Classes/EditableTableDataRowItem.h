@@ -10,6 +10,7 @@
  * Copyright:		(c) 2011 Infusions of Grandeur. All rights reserved.
  ********************************************************************************
  *	08/15/11		*	EGC	*	File creation date
+ *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
  *******************************************************************************/
 
 #import <Foundation/Foundation.h>
@@ -70,6 +71,7 @@ typedef enum
 @protocol EditableTableDataRowItemDelegate
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidSelectItem:(id)selection;					// Used for popup and comboBox type controls
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidSetValue:(NSString *)newValue;			// Used for text field and comboBox type controls
-- (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidToggleToValue:(BOOL)newToggleValue;		// used for toggle button control type
+- (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidToggleToValue:(BOOL)newToggleValue;		// Used for toggle button control type
+- (void)rowItemWasSelected:(EditableTableDataRowItem *)rowItem;											// Used for highlighting the control's row
 @end
 

@@ -10,6 +10,7 @@
  * Copyright:		(c) 2011 Infusions of Grandeur. All rights reserved.
  ********************************************************************************
  *	08/12/11		*	EGC	*	File creation date
+ *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
  *******************************************************************************/
 
 #import "EditableTableDataRow.h"
@@ -29,15 +30,6 @@
 
 	CGRect			frame = self.contentView.frame;
 	int				totalItemWidth = 0;
-
-	if (sizesAdjusted)
-		{
-		return;
-		}
-	else
-		{
-		sizesAdjusted = YES;
-		}
 
 	// First deal with adjusting the width
 	for (EditableTableDataRowItem *nextItem in rowItems)
@@ -80,11 +72,6 @@
 			nextItem.baseSize = size;
 			}
 		}
-}
-
-- (void)updateSizes
-{
-	sizesAdjusted = NO;
 }
 
 - (NSNumber *)editColumn
@@ -146,7 +133,6 @@
 		{
 		itemPadding = padding;
 		scaleToFillRow = scale;
-		sizesAdjusted = NO;
 		}
     return self;
 }
@@ -193,7 +179,22 @@
 	[self setEditColumn:nil];
 	[self setRowItems:nil];
 	delegate = nil;
-	sizesAdjusted = NO;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated 
+{
+
+	UIView *bkgrnd = [[UIView alloc] initWithFrame:self.frame];
+	self.backgroundView = bkgrnd;
+	if (selected)
+		{
+		bkgrnd.backgroundColor = [UIColor blueColor];
+		}
+	else
+		{
+		bkgrnd.backgroundColor = [UIColor whiteColor];
+		}
+
 }
 
 #pragma mark - EditableTableDataRowItem Delegate methods
@@ -211,6 +212,11 @@
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidToggleToValue:(BOOL)newToggleValue
 {
 	[delegate dataRow:self didSetValue:[NSNumber numberWithBool:newToggleValue] forColumn:[self.rowItems indexOfObject:rowItem]];
+}
+
+- (void)rowItemWasSelected:(EditableTableDataRowItem *)rowItem
+{
+	[delegate didSelectDataRow:self];
 }
 
 @end

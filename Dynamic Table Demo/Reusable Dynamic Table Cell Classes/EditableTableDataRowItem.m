@@ -10,6 +10,7 @@
  * Copyright:		(c) 2011 Infusions of Grandeur. All rights reserved.
  ********************************************************************************
  *	08/15/11		*	EGC	*	File creation date
+ *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
  *******************************************************************************/
 
 #import "EditableTableDataRowItem.h"
@@ -55,6 +56,7 @@
 			textField.borderStyle = UITextBorderStyleRoundedRect;
 			textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 			[textField addTarget:self action:@selector(fieldTextDidUpdate:) forControlEvents:UIControlEventEditingDidEnd];
+			[textField addTarget:self action:@selector(fieldTextDidStartEditing:) forControlEvents:UIControlEventEditingDidBegin];
 			if (label && [label isKindOfClass:[NSString class]])
 				{
 				textField.text = label;
@@ -121,6 +123,7 @@
 				}
 			buttonField.titleLabel.font = [UIFont systemFontOfSize:DEFAULT_BUTTON_FONT_SIZE];
 			[buttonField addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+			[buttonField addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 			control = [buttonField retain];
 			}
 		else if (controlType == ControlTypeToggleButton)
@@ -167,6 +170,7 @@
 - (IBAction)buttonPressed:(id)sender
 {
 
+	[delegate rowItemWasSelected:self];
 	if (self.itemControlType == ControlTypeToggleButton)
 		{
 		UIButton *toggleButton = (UIButton *)sender;
@@ -231,6 +235,10 @@
 				}
 			}
 		[textField becomeFirstResponder];
+		}
+	else if (self.itemControlType == ControlTypeButton)
+		{
+		// Don't need to do anything here. Caller passed in target and action. But in order to trigger delegate rowItemWasSelected this control type was added here.
 		}
 
 }
@@ -382,6 +390,11 @@
 			}
 		[delegate rowItem:self controlDidSetValue:field.text];
 		}
+}
+
+- (void)fieldTextDidStartEditing:(id)sender
+{
+	[delegate rowItemWasSelected:self];
 }
 
 #pragma mark - Text field delegate methods
