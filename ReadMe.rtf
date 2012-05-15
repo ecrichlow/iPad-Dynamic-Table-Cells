@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1138
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf320
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;\red92\green38\blue153;\red170\green13\blue145;\red196\green26\blue22;
 \red63\green110\blue116;\red46\green13\blue110;\red38\green71\blue75;\red100\green56\blue32;}
@@ -6,7 +6,7 @@
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc
 
 \f0\fs48 \cf0 Dynamic Table Demo\
-v1.0\
+v1.2\
 (c) 2011 Infusions of Grandeur\
 Written By: Eric Crichlow\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
@@ -48,7 +48,11 @@ Sample images are provided and you are free to use them.\
 \fs28 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi700\pardirnatural
 
-\b0 \cf0 Version 1.0 - Initial release
+\b0 \cf0 Version 1.0 :	Initial release\
+\
+Version 1.2 :	Added delegate methods for row selection\
+				Added tracking of associated table view to EditableTableDataRow\
+				Added option to not pad controls at beginning or end of row
 \b \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural
 \cf0 \
@@ -65,7 +69,7 @@ Sample images are provided and you are free to use them.\
 \i0 \cf0 \
 \pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi720\pardirnatural
 \cf0 This is the subclass of UITableViewCell that is instantiated in calls to cellForRowAtIndexPath.\
-It contains 5 properties of interest to the developer:\
+It contains 8 properties of interest to the developer:\
 \pard\tx720\tx1440\tx1440\tx2140\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li2120\fi-660\pardirnatural
 
 \i \cf0 delegate - 
@@ -86,6 +90,9 @@ It contains 5 properties of interest to the developer:\
 
 \i \cf0 scaleToFillRow - 
 \i0 determines whether the sizes of the EditableTableDataRowItems will be scaled to take up as much of the space as possible\
+padStartItem - determines whether to add padding before the first control on the row\
+padEndItem - determines whether to add padding after the last control on the row\
+tableView - the UITableView that this row is associated with\
 \pard\tx720\tx1440\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li740\fi-740\pardirnatural
 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
@@ -150,7 +157,7 @@ It contains 8 properties of interest to the developer:\
 
 \b \
 	
-\b0 In the  cellForRowAtIndexPath method of your tableview data source, initialize or dequeue the EditableTableDataRow object to use for the table row, initialize the EditableTableDataRowItem objects that will populate the row, perform any UIKIT customizations of the underlying UIKit objects used to represent the EditableTableDataRowItem objects, assign the delegate of the cell and assign an array of the items to the rowItems property of the cell:\
+\b0 In the  cellForRowAtIndexPath method of your tableview data source, initialize or dequeue the EditableTableDataRow object to use for the table row, initialize the EditableTableDataRowItem objects that will populate the row, perform any UIKit customizations of the underlying UIKit objects used to represent the EditableTableDataRowItem objects, assign the delegate of the cell and assign an array of the items to the rowItems property of the cell:\
 \
 \pard\tx560\pardeftab560\pardirnatural
 
@@ -163,7 +170,7 @@ It contains 8 properties of interest to the developer:\
 	cell = (\cf5 EditableTableDataRow\cf0  *)[tableView \cf6 dequeueReusableCellWithIdentifier\cf0 :customCellIdentifier];\
 	\cf3 if\cf0  (cell == \cf3 nil\cf0 )\
 		\{\
-		cell = [[[\cf5 EditableTableDataRow\cf0  \cf6 alloc\cf0 ] \cf7 initWithStyle\cf0 :\cf6 UITableViewCellStyleDefault\cf0  \cf7 reuseIdentifier\cf0 :customCellIdentifier \cf7 itemPadding\cf0 :\cf8 DEFAULT_ROW_ITEM_PADDING\cf0  \cf7 scaleToFill\cf0 :\cf3 YES\cf0 ] \cf6 autorelease\cf0 ];\
+		cell = [[[\cf5 EditableTableDataRow\cf0  \cf6 alloc\cf0 ] \cf7 initWithStyle\cf0 :\cf6 UITableViewCellStyleDefault\cf0  \cf7 reuseIdentifier\cf0 :customCellIdentifier \cf7 itemPadding\cf0 :\cf8 DEFAULT_ROW_ITEM_PADDING\cf0  \cf7 scaleToFill\cf0 :\cf3 YES\cf0  \cf7 forTable\cf0 :tableView] \cf6 autorelease\cf0 ];\
 		\}\
 \
 	\cf5 EditableTableDataRowItem\cf0  *yearRowItem = [[[\cf5 EditableTableDataRowItem\cf0  \cf6 alloc\cf0 ] \cf7 initWithRowItemControlType\cf0 :\cf7 ControlTypeTextField\cf0  \cf7 selections\cf0 :\cf3 nil\cf0  \cf7 selectionListKey\cf0 :\cf3 nil\cf0  \cf7 baseSize\cf0 :\cf6 CGSizeMake\cf0 (\cf8 YEAR_COLUMN_RELATIVE_WIDTH\cf0 , \cf8 DEFAULT_TEXTFIELD_HEIGHT\cf0 ) \cf7 canResize\cf0 :\cf3 NO\cf0  \cf7 normalImage\cf0 :\cf3 nil\cf0  \cf7 selectedImage\cf0 :\cf3 nil\cf0  \cf7 controlLabel\cf0 :[[\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :indexPath.\cf2 row\cf0 ] \cf6 valueForKey\cf0 :\cf4 @"year"\cf0 ] \cf7 buttonTarget\cf0 :\cf3 nil\cf0  \cf7 buttonAction\cf0 :\cf3 nil\cf0 ] \cf6 autorelease\cf0 ];\
@@ -204,7 +211,7 @@ It contains 8 properties of interest to the developer:\
 \f1\b0 \cf0 \CocoaLigature0 \
 \pard\tx560\pardeftab560\pardirnatural
 
-\fs22 \cf0 - (\cf3 void\cf0 )dataRow:(\cf5 EditableTableDataRow\cf0  *)dataRow didSetValue:(\cf3 id\cf0 )newValue forColumn:(\cf3 int\cf0 )column\
+\fs22 \cf0 - (\cf3 void\cf0 )dataRow:(\cf5 EditableTableDataRow\cf0  *)dataRow didSetValue:(\cf3 id\cf0 )newValue forColumn:(\cf3 int\cf0 )column inTable:(\cf2 UITableView\cf0  *)table\
 \{\
 \
 	\cf2 NSMutableDictionary\cf0 				*editedAuto = [\cf5 dataManager\cf0 .\cf5 autoCollection\cf0  \cf6 objectAtIndex\cf0 :dataRow.\cf2 tag\cf0 ];\

@@ -10,6 +10,7 @@
  * Copyright:		(c) 2011 Infusions of Grandeur. All rights reserved.
  ********************************************************************************
  *	08/27/11		*	EGC	*	File creation date
+ *	05/01/12		*	EGC	*	Added tracking of associated table view
  *******************************************************************************/
 
 #import "DemoTableViewController.h"
@@ -86,7 +87,7 @@
 
 #pragma mark - EditableTableDataRowItem Delegate methods
 
-- (void)dataRow:(EditableTableDataRow *)dataRow didSetValue:(id)newValue forColumn:(int)column
+- (void)dataRow:(EditableTableDataRow *)dataRow didSetValue:(id)newValue forColumn:(int)column inTable:(UITableView *)table
 {
 
 	NSMutableDictionary				*editedAuto = [dataManager.autoCollection objectAtIndex:dataRow.tag];
@@ -121,7 +122,7 @@
 	[autoTableView selectRowAtIndexPath:selectedRow animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
-- (void)didSelectDataRow:(EditableTableDataRow *)dataRow
+- (void)didSelectDataRow:(EditableTableDataRow *)dataRow inTable:(UITableView *)table
 {
 	
 	[autoTableView deselectRowAtIndexPath:[autoTableView indexPathForSelectedRow] animated:NO];
@@ -164,7 +165,7 @@
 	cell = (EditableTableDataRow *)[tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
 	if (cell == nil)
 		{
-		cell = [[[EditableTableDataRow alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:customCellIdentifier itemPadding:DEFAULT_ROW_ITEM_PADDING scaleToFill:YES] autorelease];
+		cell = [[[EditableTableDataRow alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:customCellIdentifier itemPadding:DEFAULT_ROW_ITEM_PADDING scaleToFill:YES forTable:tableView] autorelease];
 		}
 
 	EditableTableDataRowItem *yearRowItem = [[[EditableTableDataRowItem alloc] initWithRowItemControlType:ControlTypeTextField selections:nil selectionListKey:nil baseSize:CGSizeMake(YEAR_COLUMN_RELATIVE_WIDTH, DEFAULT_TEXTFIELD_HEIGHT) canResize:NO normalImage:nil selectedImage:nil controlLabel:[[dataManager.autoCollection objectAtIndex:indexPath.row] valueForKey:@"year"] buttonTarget:nil buttonAction:nil] autorelease];

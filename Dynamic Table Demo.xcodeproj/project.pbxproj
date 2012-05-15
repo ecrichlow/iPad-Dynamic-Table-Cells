@@ -182,7 +182,7 @@
 		2739B59B1408D4C4008F75FD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = Neudesic;
 			};
 			buildConfigurationList = 2739B59E1408D4C4008F75FD /* Build configuration list for PBXProject "Dynamic Table Demo" */;

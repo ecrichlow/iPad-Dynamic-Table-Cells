@@ -11,6 +11,8 @@
  ********************************************************************************
  *	08/12/11		*	EGC	*	File creation date
  *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
+ *	05/01/12		*	EGC	*	Added tracking of associated table view
+ *	05/06/12		*	EGC	*	Added option to not pad beginning or end of line
  *******************************************************************************/
 
 #import "EditableTableDataRow.h"
@@ -22,6 +24,9 @@
 @dynamic rowItems;
 @synthesize itemPadding;
 @synthesize scaleToFillRow;
+@synthesize tableView;
+@synthesize padStartItem;
+@synthesize padEndItem;
 
 #pragma mark - Business Logic
 
@@ -37,7 +42,26 @@
 		CGSize size = nextItem.originalBaseSize;
 		totalItemWidth += size.width;
 		}
-	totalItemWidth += self.itemPadding * ([self.rowItems count] + 1);
+	if (!padStartItem && !padEndItem)
+		{
+		totalItemWidth += self.itemPadding * ([self.rowItems count] - 1) + DEFAULT_MIN_START_PADDING + DEFAULT_MIN_END_PADDING;
+		}
+	else if (padStartItem && padEndItem)
+		{
+		totalItemWidth += self.itemPadding * ([self.rowItems count] + 1);
+		}
+	else if (padStartItem || padEndItem)
+		{
+		totalItemWidth += self.itemPadding * [self.rowItems count];
+		if (!padStartItem)
+			{
+			totalItemWidth += DEFAULT_MIN_START_PADDING;
+			}
+		else if (!padEndItem)
+			{
+			totalItemWidth += DEFAULT_MIN_END_PADDING;
+			}
+		}
 
 	if (totalItemWidth > frame.size.width || self.scaleToFillRow == TRUE)
 		{
@@ -125,7 +149,7 @@
 
 #pragma mark - View lifecycle
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier itemPadding:(int)padding scaleToFill:(BOOL)scale;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier itemPadding:(int)padding scaleToFill:(BOOL)scale forTable:(UITableView *)table
 {
 
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -133,6 +157,24 @@
 		{
 		itemPadding = padding;
 		scaleToFillRow = scale;
+		tableView = [table retain];
+		padStartItem = YES;
+		padEndItem = YES;
+		}
+    return self;
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier itemPadding:(int)padding padStartItem:(BOOL)padStart padEndItem:(BOOL)padEnd scaleToFill:(BOOL)scale forTable:(UITableView *)table;
+{
+	
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self)
+		{
+		itemPadding = padding;
+		scaleToFillRow = scale;
+		tableView = [table retain];
+		padStartItem = padStart;
+		padEndItem = padEnd;
 		}
     return self;
 }
@@ -142,14 +184,19 @@
 
 	[editColumn release];
 	[rowItems release];
+	[tableView release];
     [super dealloc];
 }
 
 - (void)layoutSubviews
 {
 
-	int				start_x = self.itemPadding;
+	int				start_x = DEFAULT_MIN_START_PADDING;
 
+	if (padStartItem)
+		{
+		start_x = self.itemPadding;
+		}
 	[super layoutSubviews];
 	[self adjustItemSizes];
 	for (EditableTableDataRowItem *nextItem in rowItems)
@@ -201,22 +248,22 @@
 
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidSelectItem:(id)selection
 {
-	[delegate dataRow:self didSetValue:selection forColumn:[self.rowItems indexOfObject:rowItem]];
+	[delegate dataRow:self didSetValue:selection forColumn:[self.rowItems indexOfObject:rowItem] inTable:tableView];
 }
 
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidSetValue:(NSString *)newValue
 {
-	[delegate dataRow:self didSetValue:newValue forColumn:[self.rowItems indexOfObject:rowItem]];
+	[delegate dataRow:self didSetValue:newValue forColumn:[self.rowItems indexOfObject:rowItem] inTable:tableView];
 }
 
 - (void)rowItem:(EditableTableDataRowItem *)rowItem controlDidToggleToValue:(BOOL)newToggleValue
 {
-	[delegate dataRow:self didSetValue:[NSNumber numberWithBool:newToggleValue] forColumn:[self.rowItems indexOfObject:rowItem]];
+	[delegate dataRow:self didSetValue:[NSNumber numberWithBool:newToggleValue] forColumn:[self.rowItems indexOfObject:rowItem] inTable:tableView];
 }
 
 - (void)rowItemWasSelected:(EditableTableDataRowItem *)rowItem
 {
-	[delegate didSelectDataRow:self];
+	[delegate didSelectDataRow:self inTable:tableView];
 }
 
 @end

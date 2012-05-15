@@ -18,20 +18,27 @@ Sample images are provided and you are free to use them.
 
 ## History
 
-Version 1.0 - Initial release
+Version 1.0:	Initial release
+
+Version 1.2:	Added delegate methods for row selection
+				Added tracking of associated table view to EditableTableDataRow
+				Added option to not pad controls at beginning or end of row
 
 ## Classes
 
 EditableTableDataRow
 
 This is the subclass of UITableViewCell that is instantiated in calls to cellForRowAtIndexPath.
-It contains 5 properties of interest to the developer:
+It contains 8 properties of interest to the developer:
 
 * delegate - the object responsible for processing the data returned by the EditableTableDataRowItems in the cell
 * editColumn - when the cell is drawn, if a value for this property is set, focus will be given to that column, such as making a text field first responder
 * rowItems - an array of EditableTableDataRowItem objects which will be used to populate the cell
 * itemPadding - the number of points to place between each EditableTableDataRowItem in the cell
 * scaleToFillRow - determines whether the sizes of the EditableTableDataRowItems will be scaled to take up as much of the space as possible
+* padStartItem - determines whether to add padding before the first control on the row
+* padEndItem - determines whether to add padding after the last control on the row
+* tableView - the UITableView that this row is associated with
 
 EditableTableDataRowItem
 
@@ -56,7 +63,7 @@ Add the following 4 files to your project:
 * EditableTableDataRowItem.h
 * EditableTableDataRowItem.m
 
-In the  cellForRowAtIndexPath method of your tableview data source, initialize or dequeue the EditableTableDataRow object to use for the table row, initialize the EditableTableDataRowItem objects that will populate the row, perform any UIKIT customizations of the underlying UIKit objects used to represent the EditableTableDataRowItem objects, assign the delegate of the cell and assign an array of the items to the rowItems property of the cell:
+In the  cellForRowAtIndexPath method of your tableview data source, initialize or dequeue the EditableTableDataRow object to use for the table row, initialize the EditableTableDataRowItem objects that will populate the row, perform any UIKit customizations of the underlying UIKit objects used to represent the EditableTableDataRowItem objects, assign the delegate of the cell and assign an array of the items to the rowItems property of the cell:
 
 	- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 	{
@@ -67,7 +74,7 @@ In the  cellForRowAtIndexPath method of your tableview data source, initialize o
 		cell = (EditableTableDataRow *)[tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
 		if (cell == nil)
 			{
-			cell = [[[EditableTableDataRow alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:customCellIdentifier itemPadding:DEFAULT_ROW_ITEM_PADDING scaleToFill:YES] autorelease];
+			cell = [[[EditableTableDataRow alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:customCellIdentifier itemPadding:DEFAULT_ROW_ITEM_PADDING scaleToFill:YES forTable:tableView] autorelease];
 			}
 	
 		EditableTableDataRowItem *yearRowItem = [[[EditableTableDataRowItem alloc] initWithRowItemControlType:ControlTypeTextField selections:nil selectionListKey:nil baseSize:CGSizeMake(YEAR_COLUMN_RELATIVE_WIDTH, DEFAULT_TEXTFIELD_HEIGHT) canResize:NO normalImage:nil selectedImage:nil controlLabel:[[dataManager.autoCollection objectAtIndex:indexPath.row] valueForKey:@"year"] buttonTarget:nil buttonAction:nil] autorelease];
@@ -98,7 +105,7 @@ In the  cellForRowAtIndexPath method of your tableview data source, initialize o
 
 Implement the EditableTableDataRow delegate method.
 
-	- (void)dataRow:(EditableTableDataRow *)dataRow didSetValue:(id)newValue forColumn:(int)column
+	- (void)dataRow:(EditableTableDataRow *)dataRow didSetValue:(id)newValue forColumn:(int)column inTable:(UITableView *)table
 	{
 	
 		NSMutableDictionary				*editedAuto = [dataManager.autoCollection objectAtIndex:dataRow.tag];
