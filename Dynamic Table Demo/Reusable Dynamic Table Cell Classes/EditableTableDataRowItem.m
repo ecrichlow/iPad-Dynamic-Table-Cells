@@ -11,6 +11,7 @@
  ********************************************************************************
  *	08/15/11		*	EGC	*	File creation date
  *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
+ *	05/24/12		*	EGC	*	Made fix for crashing combo box
  *******************************************************************************/
 
 #import "EditableTableDataRowItem.h"
@@ -387,6 +388,7 @@
 			[optionPopoverController dismissPopoverAnimated:YES];
 			[optionPopoverController release];
 			optionPopoverController = nil;
+			field.delegate = nil;				// textFieldShouldReturn was still getting called on the released textField before the popover was deconstructed
 			}
 		[delegate rowItem:self controlDidSetValue:field.text];
 		}
