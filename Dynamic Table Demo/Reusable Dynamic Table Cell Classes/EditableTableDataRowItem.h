@@ -11,11 +11,13 @@
  ********************************************************************************
  *	08/15/11		*	EGC	*	File creation date
  *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
+ *	05/02/18		*	EGC	*	Updated to use PopoverPresentationController
  *******************************************************************************/
 
 #import <Foundation/Foundation.h>
 
 #define DEFAULT_POPOVER_WIDTH			320
+#define DEFAULT_TABLEVIEW_ROW_HEIGHT	44
 #define DEFAULT_TOOLBAR_HEIGHT			44
 #define DEFAULT_COMBO_TEXTFIELD_HEIGHT	36
 #define DEFAULT_COMBO_TEXTFIELD_MARGIN	4
@@ -35,24 +37,25 @@ typedef enum
 
 @protocol EditableTableDataRowItemDelegate;
 
-@interface EditableTableDataRowItem : NSObject <UITableViewDataSource, UITableViewDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
+@interface EditableTableDataRowItem : NSObject <UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate, UITextFieldDelegate>
 {
 
 	id<EditableTableDataRowItemDelegate> delegate;
 
-	RowItemControlType			itemControlType;		// So named to denote that this does not correspond to a UIControl
-	NSArray						*controlSelections;		// List of items to display for popup control type
-	NSString					*listKey;				// If controlSelections array contains NSManagedObjects or NSDictionaries, the key to use to get a string to represent the item
-	CGSize						baseSize;				// Default size of the control, with width relative to other items on the row
-	BOOL						resizeable;				// Determines whether item can be resized based on row width
-	UIControl					*control;				// Standard control particular to the type of row item
-	UIImage						*normalImage;			// Used to customize the appearance of any button-based control type
-	UIImage						*selectedImage;			// Used to customize the appearance of any button-based control type
+	RowItemControlType					itemControlType;		// So named to denote that this does not correspond to a UIControl
+	NSArray								*controlSelections;		// List of items to display for popup control type
+	NSString							*listKey;				// If controlSelections array contains NSManagedObjects or NSDictionaries, the key to use to get a string to represent the item
+	CGSize								baseSize;				// Default size of the control, with width relative to other items on the row
+	BOOL								resizeable;				// Determines whether item can be resized based on row width
+	UIControl							*control;				// Standard control particular to the type of row item
+	UIImage								*normalImage;			// Used to customize the appearance of any button-based control type
+	UIImage								*selectedImage;			// Used to customize the appearance of any button-based control type
 
-	CGSize						originalBaseSize;
-	int							state;
-	int							selectedIndex;
-	UIPopoverController			*optionPopoverController;
+	CGSize								originalBaseSize;
+	int									state;
+	int									selectedIndex;
+	UIPopoverPresentationController		*optionPopoverController;
+	UIViewController					*parentController;
 }
 @property(assign) id<EditableTableDataRowItemDelegate> delegate;
 @property(nonatomic, assign, readonly) RowItemControlType itemControlType;
@@ -64,8 +67,8 @@ typedef enum
 @property(nonatomic, retain) UIImage *normalImage;
 @property(nonatomic, retain) UIImage *selectedImage;
 @property(nonatomic, assign) CGSize originalBaseSize;
-- (id)initWithRowItemControlType:(int)controlType selections:(NSArray *)selections selectionListKey:(NSString *)selectionListKey baseSize:(CGSize)size canResize:(BOOL)resize normalImage:(UIImage *)normalImage selectedImage:(UIImage *)selectedImage controlLabel:(NSString *)label buttonTarget:(id)target buttonAction:(SEL)action;
-- (id)initWithRowItemControlType:(int)controlType canResize:(BOOL)resize;
+- (id)initWithRowItemControlType:(int)controlType selections:(NSArray *)selections selectionListKey:(NSString *)selectionListKey baseSize:(CGSize)size canResize:(BOOL)resize normalImage:(UIImage *)normalImage selectedImage:(UIImage *)selectedImage controlLabel:(NSString *)label buttonTarget:(id)target buttonAction:(SEL)action forViewController:(UIViewController *)controller;
+- (id)initWithRowItemControlType:(int)controlType canResize:(BOOL)resize forViewController:(UIViewController *)controller;
 @end
 
 @protocol EditableTableDataRowItemDelegate

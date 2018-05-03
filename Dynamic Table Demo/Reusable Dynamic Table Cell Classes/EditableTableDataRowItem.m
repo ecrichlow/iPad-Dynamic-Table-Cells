@@ -12,6 +12,7 @@
  *	08/15/11		*	EGC	*	File creation date
  *	01/17/12		*	EGC	*	Made changes to delegate to support row selection
  *	05/24/12		*	EGC	*	Made fix for crashing combo box
+ *	05/02/18		*	EGC	*	Updated to use PopoverPresentationController
  *******************************************************************************/
 
 #import "EditableTableDataRowItem.h"
@@ -32,7 +33,7 @@
 #pragma mark - Object lifecycle
 
 // Full initializer allowing for one-step setup of the control
-- (id)initWithRowItemControlType:(int)controlType selections:(NSArray *)selections selectionListKey:(NSString *)selectionListKey baseSize:(CGSize)size canResize:(BOOL)resize normalImage:(UIImage *)normalButtonImage selectedImage:(UIImage *)selectedButtonImage controlLabel:(NSString *)label buttonTarget:(id)target buttonAction:(SEL)action
+- (id)initWithRowItemControlType:(int)controlType selections:(NSArray *)selections selectionListKey:(NSString *)selectionListKey baseSize:(CGSize)size canResize:(BOOL)resize normalImage:(UIImage *)normalButtonImage selectedImage:(UIImage *)selectedButtonImage controlLabel:(NSString *)label buttonTarget:(id)target buttonAction:(SEL)action forViewController:(UIViewController *)controller
 {
 
     self = [super init];
@@ -47,6 +48,7 @@
 		normalImage = [normalButtonImage retain];
 		selectedImage = [selectedButtonImage retain];
 		optionPopoverController = nil;
+		parentController = controller;
 		if (controlType == ControlTypeTextField)
 			{
 			UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
@@ -143,9 +145,9 @@
 }
 
 // Basic initializer which requires caller to retrieve the created inner control and set it up manually
-- (id)initWithRowItemControlType:(int)controlType canResize:(BOOL)resize
+- (id)initWithRowItemControlType:(int)controlType canResize:(BOOL)resize forViewController:(UIViewController *)controller
 {
-	return ([self initWithRowItemControlType:controlType selections:nil selectionListKey:nil baseSize:CGSizeMake(0, 0) canResize:resize normalImage:nil selectedImage:nil controlLabel:nil buttonTarget:nil buttonAction:nil]);
+	return ([self initWithRowItemControlType:controlType selections:nil selectionListKey:nil baseSize:CGSizeMake(0, 0) canResize:resize normalImage:nil selectedImage:nil controlLabel:nil buttonTarget:nil buttonAction:nil forViewController:controller]);
 }
 
 - (void)dealloc
@@ -189,21 +191,24 @@
 	else if (self.itemControlType == ControlTypePopup)
 		{
 		UITableViewController *popoverTable = [[[UITableViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
-		UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:popoverTable];
 		popoverTable.tableView.dataSource = self;
 		popoverTable.tableView.delegate = self;
-		popoverController.popoverContentSize = CGSizeMake(DEFAULT_POPOVER_WIDTH, [self.controlSelections count] * popoverTable.tableView.rowHeight);
+		popoverTable.modalPresentationStyle = UIModalPresentationPopover;
+		popoverTable.preferredContentSize = CGSizeMake(DEFAULT_POPOVER_WIDTH, [self.controlSelections count] * DEFAULT_TABLEVIEW_ROW_HEIGHT);
+		[parentController presentViewController:popoverTable animated:NO completion:nil];
+		UIPopoverPresentationController *popoverController = popoverTable.popoverPresentationController;
 		popoverController.delegate = self;
+		popoverController.sourceView = control.superview;
+		popoverController.sourceRect = control.frame;
+		popoverController.permittedArrowDirections = UIPopoverArrowDirectionAny;
 		optionPopoverController = popoverController;
-		[popoverController presentPopoverFromRect:control.frame inView:control.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 		}
 	else if (self.itemControlType == ControlTypeCombo)
 		{
 		UITableViewController *popoverTable = [[[UITableViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
 		UIToolbar *toolbar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, DEFAULT_POPOVER_WIDTH, DEFAULT_TOOLBAR_HEIGHT)] autorelease];
-		UIView *containerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, DEFAULT_POPOVER_WIDTH, ([self.controlSelections count] * popoverTable.tableView.rowHeight) + DEFAULT_TOOLBAR_HEIGHT)] autorelease];
+		UIView *containerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, DEFAULT_POPOVER_WIDTH, ([self.controlSelections count] * DEFAULT_TABLEVIEW_ROW_HEIGHT) + DEFAULT_TOOLBAR_HEIGHT)] autorelease];
 		UIViewController *containerViewController = [[[UIViewController alloc] init] autorelease];
-		UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:containerViewController];
 		UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(DEFAULT_COMBO_TEXTFIELD_MARGIN, (DEFAULT_TOOLBAR_HEIGHT - DEFAULT_COMBO_TEXTFIELD_HEIGHT) / 2, DEFAULT_POPOVER_WIDTH - (DEFAULT_COMBO_TEXTFIELD_MARGIN * 2), DEFAULT_COMBO_TEXTFIELD_HEIGHT)];
 		textField.delegate = self;
 		textField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -212,17 +217,21 @@
 		textField.borderStyle = UITextBorderStyleRoundedRect;
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		[textField addTarget:self action:@selector(fieldTextDidUpdate:) forControlEvents:UIControlEventEditingDidEnd];
-		containerViewController.view = containerView;
 		popoverTable.tableView.dataSource = self;
 		popoverTable.tableView.delegate = self;
-		popoverTable.tableView.frame = CGRectMake(0, DEFAULT_TOOLBAR_HEIGHT, DEFAULT_POPOVER_WIDTH, [self.controlSelections count] * popoverTable.tableView.rowHeight);
-		popoverController.popoverContentSize = CGSizeMake(DEFAULT_POPOVER_WIDTH, ([self.controlSelections count] * popoverTable.tableView.rowHeight) + DEFAULT_TOOLBAR_HEIGHT);
-		popoverController.delegate = self;
+		popoverTable.tableView.frame = CGRectMake(0, DEFAULT_TOOLBAR_HEIGHT, DEFAULT_POPOVER_WIDTH, [self.controlSelections count] * DEFAULT_TABLEVIEW_ROW_HEIGHT);
 		[toolbar addSubview:textField];
 		[containerView addSubview:toolbar];
 		[containerView addSubview:popoverTable.tableView];
+		containerViewController.view = containerView;
+		containerViewController.modalPresentationStyle = UIModalPresentationPopover;
+		containerViewController.preferredContentSize = CGSizeMake(DEFAULT_POPOVER_WIDTH, ([self.controlSelections count] * DEFAULT_TABLEVIEW_ROW_HEIGHT) + DEFAULT_TOOLBAR_HEIGHT);
+		[parentController presentViewController:containerViewController animated:NO completion:nil];
+		UIPopoverPresentationController *popoverController = containerViewController.popoverPresentationController;
+		popoverController.delegate = self;
+		popoverController.sourceView = control.superview;
+		popoverController.sourceRect = control.frame;
 		optionPopoverController = popoverController;
-		[popoverController presentPopoverFromRect:control.frame inView:control.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 		// If there's currently an object that's first responder, make it resign that status
 		for (UIView *subview in self.control.superview.subviews)
 			{
@@ -300,7 +309,7 @@
 		{
 		if (itemControlType == ControlTypeCombo)
 			{
-			for (UIView *nextView in optionPopoverController.contentViewController.view.subviews)
+			for (UIView *nextView in optionPopoverController.presentedViewController.view.subviews)
 				{
 				if ([nextView isKindOfClass:[UIToolbar class]])
 					{
@@ -322,25 +331,29 @@
 					}
 				}
 			}
+		[parentController dismissViewControllerAnimated:NO completion:nil];
 		optionPopoverController.delegate = nil;
-		[optionPopoverController dismissPopoverAnimated:YES];
-		[optionPopoverController release];
 		optionPopoverController = nil;
 		}
 	[delegate rowItem:self controlDidSelectItem:[self.controlSelections objectAtIndex:indexPath.row]];
 }
 
-#pragma mark - UIPopoverController delegate methods
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return (DEFAULT_TABLEVIEW_ROW_HEIGHT);
+}
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+#pragma mark - UIPopoverPresentationControllerDelegate delegate methods
+
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
 {
 
 	// Deconstruct the popover and its components so that no notifications or delegate methods are called on a released object
-	if (optionPopoverController == popoverController)
+	if (optionPopoverController == popoverPresentationController)
 		{
 		if (itemControlType == ControlTypeCombo)
 			{
-			for (UIView *nextView in optionPopoverController.contentViewController.view.subviews)
+			for (UIView *nextView in optionPopoverController.presentedViewController.view.subviews)
 				{
 				if ([nextView isKindOfClass:[UIToolbar class]])
 					{
@@ -363,14 +376,8 @@
 				}
 			}
 		optionPopoverController.delegate = nil;
-		[optionPopoverController release];
 		optionPopoverController = nil;
 		}
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
-{
-	return (YES);
 }
 
 #pragma mark - Notifications
@@ -385,9 +392,8 @@
 		if (optionPopoverController)
 			{
 			optionPopoverController.delegate = nil;
-			[optionPopoverController dismissPopoverAnimated:YES];
-			[optionPopoverController release];
 			optionPopoverController = nil;
+			[parentController dismissViewControllerAnimated:NO completion:nil];
 			field.delegate = nil;				// textFieldShouldReturn was still getting called on the released textField before the popover was deconstructed
 			}
 		[delegate rowItem:self controlDidSetValue:field.text];
